@@ -1,6 +1,10 @@
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://5c8c1e55a582.ngrok-free.app/api';
+export const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "https://be.simanpro.prisan.co.id/api";
+
+export const ASSET_BASE_URL =
+  import.meta.env.VITE_ASSET_BASE_URL || "https://be.simanpro.prisan.co.id";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -8,7 +12,6 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    // Authorization: `Bearer ${token}`,
   },
 });
 
@@ -24,5 +27,17 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+// Disable sementara
+// api.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response && error.response.status === 401) {
+//       localStorage.removeItem("token");
+//       window.location.href = "/auth/login";
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 export default api;

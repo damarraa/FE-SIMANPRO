@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../Components/Sidebar/Sidebar";
 import Header from "../Components/Header/Header";
 
 const DashboardLayout = () => {
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      <Sidebar />
-      <div className="flex-1 flex flex-col">
-        <Header />
+    <div className="min-h-screen bg-gray-50">
+      {/* Sidebar */}
+      <Sidebar isMobileOpen={isMobileOpen} setIsMobileOpen={setIsMobileOpen} />
+
+      {/* Konten utama */}
+      <div
+        className={`flex flex-col min-h-screen transition-all duration-300 ${
+          !isMobileOpen ? "md:pl-64" : ""
+        }`}
+      >
+        <Header onMenuClick={() => setIsMobileOpen(true)} />
         <main className="flex-1 p-6 overflow-y-auto">
-          {/* Semua halaman akan muncul disini */}
+          <Outlet />
         </main>
       </div>
     </div>
